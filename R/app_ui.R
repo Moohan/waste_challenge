@@ -20,11 +20,12 @@ app_ui <- function(request) {
           icon = icon("chart-line")
         )
       )),
-      dashboardBody(tabItems(# First tab content
+      dashboardBody(tabItems( # First tab content
         tabItem(
           tabName = "main",
           plotOutput("mainchart")
-        )))
+        )
+      ))
     )
   )
 }
@@ -38,12 +39,15 @@ app_ui <- function(request) {
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
-  add_resource_path('www', app_sys('app/www'))
+  add_resource_path("www", app_sys("app/www"))
 
-  tags$head(favicon(),
-            bundle_resources(path = app_sys('app/www'),
-                             app_title = 'waste_challenge')
-            # Add here other external resources
-            # for example, you can add shinyalert::useShinyalert()
-            )
+  tags$head(
+    favicon(),
+    bundle_resources(
+      path = app_sys("app/www"),
+      app_title = "waste_challenge"
+    )
+    # Add here other external resources
+    # for example, you can add shinyalert::useShinyalert() etc.
+  )
 }

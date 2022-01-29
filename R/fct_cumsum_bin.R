@@ -6,10 +6,12 @@
 #'
 #' @noRd
 cumsum_bin <- function(weight, bin) {
-  if_else({{bin}} == "Yes",
-          {{weight}},
-          pmax({{weight}},
-               {{weight}} + lag({{weight}}),
-               na.rm = TRUE)) %>%
+  if_else({{ bin }} == "Yes",
+    {{ weight }},
+    pmax({{ weight }},
+      {{ weight }} + lag({{ weight }}),
+      na.rm = TRUE
+    )
+  ) %>%
     cumsum()
 }

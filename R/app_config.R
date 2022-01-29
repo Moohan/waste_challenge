@@ -9,7 +9,7 @@
 #' 
 #' @noRd
 app_sys <- function(...){
-  system.file(..., package = "waste_challenge")
+  system.file(..., package = "waste.challenge")
 }
 
 

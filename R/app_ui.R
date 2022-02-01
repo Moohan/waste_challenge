@@ -13,7 +13,10 @@ app_ui <- function(request) {
     waiter::autoWaiter(),
     shinydisconnect::disconnectMessage(),
     dashboardPage(
-      dashboardHeader(title = "Waste Challenge - February 2022"),
+      dashboardHeader(
+        title = "Waste Challenge - February 2022",
+        dropdownMenuOutput("messageMenu")
+      ),
       dashboardSidebar(sidebarMenu(
         id = "tabset",
         menuItem(

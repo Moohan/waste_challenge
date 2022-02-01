@@ -3,11 +3,28 @@
 #' @param input,output,session Internal parameters for {shiny}.
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @import shinydashboard
 #' @import dplyr
 #' @import tidyr
 #' @import ggplot2
 #' @noRd
 app_server <- function(input, output, session) {
+  daily_tips <- get_daily_tips(get_data())
+
+  output$messageMenu <- renderMenu({
+    # Code to generate each of the messageItems here, in a list. This assumes
+    # that messageData is a data frame with two columns, 'from' and 'message'.
+    msgs <- apply(daily_tips, 1, function(row) {
+      messageItem(from = row[["household"]], message = row[["tip_of_the_day"]])
+    })
+
+    # This is equivalent to calling:
+    # dropdownMenu(type="messages", msgs[[1]], msgs[[2]], ...)
+    dropdownMenu(type = "messages", .list = msgs)
+  })
+
+
+
   main_waste <- get_data() %>%
     select(
       timestamp,

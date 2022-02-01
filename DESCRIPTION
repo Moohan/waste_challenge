@@ -28,7 +28,8 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    waiter
+    waiter,
+    xfun
 Suggests: 
     testthat
 Encoding: UTF-8

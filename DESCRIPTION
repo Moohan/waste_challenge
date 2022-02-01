@@ -24,6 +24,7 @@ Imports:
     rlang,
     shiny (>= 1.7.1),
     shinydashboard,
+    shinydisconnect,
     tibble,
     tidyr,
     tidyselect,

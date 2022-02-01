@@ -11,6 +11,7 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     waiter::autoWaiter(),
+    shinydisconnect::disconnectMessage(),
     dashboardPage(
       dashboardHeader(title = "Waste Challenge - February 2022"),
       dashboardSidebar(sidebarMenu(

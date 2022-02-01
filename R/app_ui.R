@@ -20,12 +20,20 @@ app_ui <- function(request) {
           "Main waste",
           tabName = "main",
           icon = icon("chart-line")
+        ),
+        menuItem(
+          "Food waste",
+          tabName = "food-waste",
+          icon = icon("chart-line")
         )
       )),
       dashboardBody(tabItems( # First tab content
         tabItem(
           tabName = "main",
           plotOutput("mainchart")
+        ),
+        tabItem(
+          tabName = "food-waste"
         )
       ))
     )
@@ -49,7 +57,5 @@ golem_add_external_resources <- function() {
       path = app_sys("app/www"),
       app_title = "waste_challenge"
     )
-    # Add here other external resources
-    # for example, you can add shinyalert::useShinyalert() etc.
   )
 }

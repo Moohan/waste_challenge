@@ -26,7 +26,8 @@ Imports:
     shinydashboard,
     tibble,
     tidyr,
-    tidyselect
+    tidyselect,
+    waiter
 Suggests: 
     testthat
 Encoding: UTF-8

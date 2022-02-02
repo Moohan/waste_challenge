@@ -23,6 +23,14 @@ app_server <- function(input, output, session) {
     dropdownMenu(type = "messages", .list = msgs)
   })
 
+  bin_weights <- data.frame(household = c("James & Camille", "Amy", "Amy & Jonny"),
+                            waste_weight = c(1.3, 0, 0),
+                            plastic_weight = c(0.7, 0, 0),
+             clinical = c(0.043, 0, 0),
+             food_waste = c(0.272, 0, 0)) %>%
+    pivot_longer(-household,
+                 names_to = "type",
+                 values_to = "bin_weight")
 
 
   main_waste <- get_data() %>%
@@ -34,6 +42,7 @@ app_server <- function(input, output, session) {
       weight_of_plastic_recycling_kg,
       bin_emptied_2
     ) %>%
+    drop_na() %>%
     group_by(household) %>%
     mutate(
       waste_weight = cumsum_bin(weight = weight_of_landfill_waste_kg, bin = bin_emptied),
@@ -45,7 +54,10 @@ app_server <- function(input, output, session) {
       cols = c(waste_weight, plastic_weight),
       names_to = "type",
       values_to = "weight"
-    )
+    ) %>%
+    # Adjust for bin weight
+    left_join(bin_weights) %>%
+    mutate(weight = pmax(weight - bin_weight, 0))
 
   # Your application server logic
   output$mainchart <- renderPlot({

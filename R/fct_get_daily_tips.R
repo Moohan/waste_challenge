@@ -10,6 +10,7 @@
 get_daily_tips <- function(data) {
   tips <- data %>%
     dplyr::select(.data$household, .data$tip_of_the_day) %>%
+    tidyr::drop_na() %>%
     dplyr::mutate(
       tip_of_the_day = stringr::str_c(
         .data$tip_of_the_day,

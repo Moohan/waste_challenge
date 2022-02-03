@@ -27,5 +27,8 @@ sum_waste <- function(data, type, bin, bin_weights) {
     # Adjust for bin weight
     dplyr::left_join(bin_weights) %>%
     dplyr::mutate(weight = pmax(.data$weight - .data$bin_weight, 0)) %>%
-    dplyr::mutate(waste_weight = cumsum_bin(weight = .data$weight, bin = {{ bin }}))
+    dplyr::mutate(waste_weight = cumsum_bin(weight = .data$weight, bin = {{ bin }})) %>%
+    dplyr::mutate(type = stringr::str_replace(.data$type, "weight_of_(.+?)_kg", "\\1") %>%
+                    stringr::str_replace_all("_", " ") %>%
+                    stringr::str_to_title())
 }

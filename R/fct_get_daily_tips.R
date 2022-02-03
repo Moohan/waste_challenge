@@ -21,7 +21,9 @@ get_daily_tips <- function(data) {
         )
       ) %>%
         stringr::str_to_sentence()
-    )
+    ) %>%
+    dplyr::group_by(household) %>%
+    dplyr::slice_tail(n = 1)
 
   # TODO Do spell checking with hunspell?
 

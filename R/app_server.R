@@ -7,6 +7,7 @@
 #' @import dplyr
 #' @import tidyr
 #' @import ggplot2
+#' @import scales
 #' @noRd
 app_server <- function(input, output, session) {
   daily_tips <- get_daily_tips(get_data())
@@ -75,6 +76,12 @@ app_server <- function(input, output, session) {
         name = "Household",
         type = "qual",
         palette = "Set2"
-      )
+      ) +
+      scale_x_datetime("Date",
+                       breaks = breaks_width("1 day"),
+                       labels = label_date("%d-%b")
+      ) +
+      scale_y_continuous("Weight (Kg)",
+                         )
   })
 }

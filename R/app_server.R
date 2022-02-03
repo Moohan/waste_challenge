@@ -34,7 +34,7 @@ app_server <- function(input, output, session) {
       weight_of_food_waste_kg = c(0.272, NA, NA),
       weight_of_other_recycling_kg = c(0.544, NA, NA), 
       weight_of_glass_recycling_kg = c(NA, NA, NA),
-      weight_of_clinical_waste_kg = c(0.043, NA, NA),
+      weight_of_clinical_waste_kg = c(0.043, NA, NA)
     ) %>%
     pivot_longer(-household,
       names_to = "type",

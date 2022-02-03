@@ -29,8 +29,8 @@ app_server <- function(input, output, session) {
       household = c("James & Camille", "Amy", "Amy & Jonny"),
       weight_of_landfill_waste_kg = c(1.3, 0, 0),
       weight_of_plastic_recycling_kg = c(0.7, 0, 0),
-      clinical = c(0.043, 0, 0),
-      food_waste = c(0.272, 0, 0)
+      weight_of_clinical_waste_kg = c(0.043, 0, 0),
+      weight_of_food_waste_kg = c(0.272, 0, 0)
     ) %>%
     pivot_longer(-household,
       names_to = "type",
@@ -54,34 +54,48 @@ app_server <- function(input, output, session) {
       bin_weights
     )
 
+  food_waste <-
+    sum_waste(
+      get_data(),
+      weight_of_food_waste_kg,
+      bin_emptied_3,
+      bin_weights
+    )
+
+  other_recycling <-
+    sum_waste(
+      get_data(),
+      weight_of_other_recycling_kg,
+      bin_emptied_4,
+      bin_weights
+    )
+
+  glass_recycling <-
+    sum_waste(
+      get_data(),
+      weight_of_glass_recycling_kg,
+      bin_emptied_5,
+      bin_weights
+    )
+
+  clinical_waste <-
+    sum_waste(
+      get_data(),
+      weight_of_clinical_waste_kg,
+      bin_emptied_6,
+      bin_weights
+    )
+
   # Your application server logic
-  output$mainchart <- renderPlot({
-    # Draw the main waste plot
-    bind_rows(landfill_waste, plastic_recycling) %>%
-      ggplot(aes(
-        x = timestamp,
-        colour = household,
-        fill = household,
-        alpha = type
-      )) +
-      geom_area(aes(y = waste_weight)) +
-      theme_minimal() +
-      scale_alpha_discrete(name = "Waste type", range = c(0.5, 0.8)) +
-      scale_color_brewer(
-        name = "Household",
-        type = "qual",
-        palette = "Set2"
-      ) +
-      scale_fill_brewer(
-        name = "Household",
-        type = "qual",
-        palette = "Set2"
-      ) +
-      scale_x_datetime("Date",
-                       breaks = breaks_width("1 day"),
-                       labels = label_date("%d-%b")
-      ) +
-      scale_y_continuous("Weight (Kg)",
-                         )
-  })
+  output$main_waste_chart <- bind_rows(landfill_waste, plastic_recycling) %>%
+    make_waste_chart()
+
+  output$food_waste_chart <- make_waste_chart(food_waste)
+
+  output$other_recycling_chart <- make_waste_chart(other_recycling)
+
+  output$glass_recycling_chart <- make_waste_chart(glass_recycling)
+
+  output$clinical_waste_chart <- make_waste_chart(clinical_waste)
+
 }

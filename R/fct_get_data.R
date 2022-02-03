@@ -14,6 +14,7 @@ get_data <- function() {
     googlesheets4::read_sheet(sheet_id, .name_repair = janitor::make_clean_names) %>%
       dplyr::mutate(dplyr::across(
         c(household, tidyselect::contains("bin_emptied")), forcats::as_factor
-      ))
+      )) %>%
+      arrange(household, timestamp)
   )
 }

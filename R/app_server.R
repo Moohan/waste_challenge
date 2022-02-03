@@ -10,7 +10,9 @@
 #' @import scales
 #' @noRd
 app_server <- function(input, output, session) {
-  daily_tips <- get_daily_tips(get_data())
+  all_data <- get_data()
+  
+  daily_tips <- get_daily_tips(all_data)
 
   output$messageMenu <- renderMenu({
     # Code to generate each of the messageItems here, in a list. This assumes
@@ -40,7 +42,7 @@ app_server <- function(input, output, session) {
 
   landfill_waste <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_landfill_waste_kg,
       bin_emptied,
       bin_weights
@@ -48,7 +50,7 @@ app_server <- function(input, output, session) {
 
   plastic_recycling <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_plastic_recycling_kg,
       bin_emptied_2,
       bin_weights
@@ -56,7 +58,7 @@ app_server <- function(input, output, session) {
 
   food_waste <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_food_waste_kg,
       bin_emptied_3,
       bin_weights
@@ -64,7 +66,7 @@ app_server <- function(input, output, session) {
 
   other_recycling <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_other_recycling_kg,
       bin_emptied_4,
       bin_weights
@@ -72,7 +74,7 @@ app_server <- function(input, output, session) {
 
   glass_recycling <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_glass_recycling_kg,
       bin_emptied_5,
       bin_weights
@@ -80,15 +82,14 @@ app_server <- function(input, output, session) {
 
   clinical_waste <-
     sum_waste(
-      get_data(),
+      all_data,
       weight_of_clinical_waste_kg,
       bin_emptied_6,
       bin_weights
     )
 
   # Your application server logic
-  output$main_waste_chart <- bind_rows(landfill_waste, plastic_recycling) %>%
-    make_waste_chart()
+  output$main_waste_chart <- make_waste_chart(bind_rows(landfill_waste, plastic_recycling))
 
   output$food_waste_chart <- make_waste_chart(food_waste)
 

@@ -1,14 +1,18 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
-  push:
+  workflow_run:
+    workflows: ["R-CMD-check"]
     branches: [main, master]
+    types:
+      - completed
 
 name: shiny-deploy
 
 jobs:
   shiny-deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:

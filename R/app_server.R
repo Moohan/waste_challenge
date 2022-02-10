@@ -30,7 +30,7 @@ app_server <- function(input, output, session) {
     data.frame(
       household = c("James & Camille", "Amy", "Amy & Jonny"),
       weight_of_landfill_waste_kg = c(1.293, NA, NA),
-      weight_of_plastic_recycling_kg = c(0.7, NA, NA),
+      weight_of_plastic_recycling_kg = c(0.2, NA, NA),
       weight_of_food_waste_kg = c(0.272, NA, NA),
       weight_of_other_recycling_kg = c(0.544, NA, NA), 
       weight_of_glass_recycling_kg = c(NA, NA, NA),

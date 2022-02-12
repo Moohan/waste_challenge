@@ -31,10 +31,11 @@ make_waste_chart <- function(data) {
         palette = "Set2"
       ) +
       scale_x_datetime("Date",
-                       breaks = breaks_width("1 day"),
+                       breaks = breaks_width("2 day"),
                        labels = label_date("%d-%b")
       ) +
       scale_y_continuous("Weight (Kg)",
-      )
+      ) +
+      ggtitle(paste(unique(data$type), collapse = " and "))
   })
 }

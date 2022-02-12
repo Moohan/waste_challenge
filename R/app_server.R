@@ -90,19 +90,19 @@ app_server <- function(input, output, session) {
     )
 
   # Your application server logic
-  output$main_waste_chart <- make_waste_chart(bind_rows(landfill_waste, plastic_recycling))
+  output$main_waste_chart <- make_waste_chart(bind_rows(landfill_waste, plastic_recycling), input)
   output$main_waste_table <- make_tidy_table(bind_rows(landfill_waste, plastic_recycling))
 
-  output$food_waste_chart <- make_waste_chart(food_waste)
+  output$food_waste_chart <- make_waste_chart(food_waste, input)
   output$food_waste_table <- make_tidy_table(food_waste)
 
-  output$other_recycling_chart <- make_waste_chart(other_recycling)
+  output$other_recycling_chart <- make_waste_chart(other_recycling, input)
   output$other_recycling_table <- make_tidy_table(other_recycling)
 
-  output$glass_recycling_chart <- make_waste_chart(glass_recycling)
+  output$glass_recycling_chart <- make_waste_chart(glass_recycling, input)
   output$glass_recycling_table <- make_tidy_table(glass_recycling)
 
-  output$clinical_waste_chart <- make_waste_chart(clinical_waste)
+  output$clinical_waste_chart <- make_waste_chart(clinical_waste, input)
   output$clinical_waste_table <- make_tidy_table(clinical_waste)
 
   }

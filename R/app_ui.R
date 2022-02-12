@@ -15,72 +15,90 @@ app_ui <- function(request) {
     dashboardPage(
       dashboardHeader(title = "Waste Challenge - February 2022",
                       dropdownMenuOutput("messageMenu")),
-      dashboardSidebar(sidebarMenu(
-        id = "tabset",
-        menuItem(
-          "Main waste",
-          tabName = "main",
-          icon = icon("trash-alt")
-        ),
-        menuItem(
-          "Food waste",
-          tabName = "food-waste",
-          icon = icon("drumstick-bite")
-        ),
-        menuItem(
-          "Other recycling",
-          tabName = "other-recycling",
-          icon = icon("recycle")
-        ),
-        menuItem(
-          "Glass recycling",
-          tabName = "glass-recycling",
-          icon = icon("wine-bottle")
-        ),
-        menuItem(
-          "Clinical waste",
-          tabName = "clinical-waste",
-          icon = icon("syringe")
+      dashboardSidebar(
+        sidebarMenu(
+          id = "tabset",
+          menuItem(
+            "Main waste",
+            tabName = "main",
+            icon = icon("trash-alt")
+          ),
+          menuItem(
+            "Food waste",
+            tabName = "food-waste",
+            icon = icon("drumstick-bite")
+          ),
+          menuItem(
+            "Other recycling",
+            tabName = "other-recycling",
+            icon = icon("recycle")
+          ),
+          menuItem(
+            "Glass recycling",
+            tabName = "glass-recycling",
+            icon = icon("wine-bottle")
+          ),
+          menuItem(
+            "Clinical waste",
+            tabName = "clinical-waste",
+            icon = icon("syringe")
+          ),
+          radioButtons(
+            inputId = "plotType",
+            label = "Plot to draw",
+            choices = c("One plot",
+                        "Split plot")
+          )
         )
-      )),
+      ),
       dashboardBody(tabItems(
         # First tab content
         tabItem(tabName = "main",
-                plotOutput(
-                  "main_waste_chart"
-                ),
-                DT::DTOutput(
-                  "main_waste_table"
+                fluidRow(box(
+                  width = 12,
+                  plotOutput("main_waste_chart")
                 )),
+                fluidRow(box(
+                  width = 12,
+                  DT::DTOutput("main_waste_table")
+                ))),
         tabItem(tabName = "food-waste",
-                plotOutput(
-                  "food_waste_chart"
-                ),
-                DT::DTOutput(
-                  "food_waste_table"
+                fluidRow(box(
+                  width = 12,
+                  plotOutput("food_waste_chart")
                 )),
+                fluidRow(box(
+                  width = 12,
+                  DT::DTOutput("food_waste_table")
+                ))),
 
         tabItem(tabName = "other-recycling",
-                plotOutput(
-                  "other_recycling_chart"
-                ),
-                DT::DTOutput(
-                  "other_recycling_table"
+                fluidRow(box(
+                  width = 12,
+                  plotOutput("other_recycling_chart")
                 )),
-        tabItem(tabName = "glass-recycling",
-                plotOutput(
-                  "glass_recycling_chart"
-                ),
-                DT::DTOutput(
-                  "glass_recycling_table"
-                )),
-        tabItem(tabName = "clinical-waste",
-                plotOutput(
-                  "clinical_waste_chart"
-                ),
-                DT::DTOutput(
-                  "clinical_waste_table"
-                ))
+                fluidRow(box(
+                  width = 12,
+                  DT::DTOutput("other_recycling_table")
+                ))),
+        tabItem(
+          tabName = "glass-recycling",
+          fluidRow(box(
+            width = 12,
+          plotOutput("glass_recycling_chart"))),
+          fluidRow(box(
+            width = 12,
+          DT::DTOutput("glass_recycling_table")))
+        ),
+        tabItem(
+          tabName = "clinical-waste",
+          fluidRow(box(
+            width = 12,
+          plotOutput("clinical_waste_chart"))),
+          fluidRow(box(
+            width = 12,
+          DT::DTOutput("clinical_waste_table")))
+        )
       ))
     )
   )

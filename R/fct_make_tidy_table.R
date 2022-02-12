@@ -14,6 +14,6 @@ make_tidy_table <- function(data) {
       dplyr::filter(!near(weight, 0)) %>%
       dplyr::select("Date" = timestamp, "Household" = household, "Bin type" = type, "Weight (Kg)" = weight, "Weight to date (Kg)" = cummulative_weight) %>%
       dplyr::arrange(Date, Household) %>%
-      DT::datatable()
+      DT::datatable(extensions = c("Responsive"), plugins = c("scrolling"))
     })
 }

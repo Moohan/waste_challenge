@@ -48,22 +48,38 @@ app_ui <- function(request) {
         tabItem(tabName = "main",
                 plotOutput(
                   "main_waste_chart"
+                ),
+                DT::DTOutput(
+                  "main_waste_table"
                 )),
         tabItem(tabName = "food-waste",
                 plotOutput(
                   "food_waste_chart"
+                ),
+                DT::DTOutput(
+                  "food_waste_table"
                 )),
+
         tabItem(tabName = "other-recycling",
                 plotOutput(
                   "other_recycling_chart"
+                ),
+                DT::DTOutput(
+                  "other_recycling_table"
                 )),
         tabItem(tabName = "glass-recycling",
                 plotOutput(
                   "glass_recycling_chart"
+                ),
+                DT::DTOutput(
+                  "glass_recycling_table"
                 )),
         tabItem(tabName = "clinical-waste",
                 plotOutput(
                   "clinical_waste_chart"
+                ),
+                DT::DTOutput(
+                  "clinical_waste_table"
                 ))
       ))
     )

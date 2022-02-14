@@ -37,72 +37,89 @@ app_server <- function(input, output, session) {
       weight_of_clinical_waste_kg = c(0.043, NA, NA)
     ) %>%
     pivot_longer(-household,
-      names_to = "type",
-      values_to = "bin_weight"
-    )
+                 names_to = "type",
+                 values_to = "bin_weight")
 
   landfill_waste <-
-    sum_waste(
-      all_data,
-      weight_of_landfill_waste_kg,
-      bin_emptied,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_landfill_waste_kg,
+              bin_emptied,
+              bin_weights)
 
   plastic_recycling <-
-    sum_waste(
-      all_data,
-      weight_of_plastic_recycling_kg,
-      bin_emptied_2,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_plastic_recycling_kg,
+              bin_emptied_2,
+              bin_weights)
 
   food_waste <-
-    sum_waste(
-      all_data,
-      weight_of_food_waste_kg,
-      bin_emptied_3,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_food_waste_kg,
+              bin_emptied_3,
+              bin_weights)
 
   other_recycling <-
-    sum_waste(
-      all_data,
-      weight_of_other_recycling_kg,
-      bin_emptied_4,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_other_recycling_kg,
+              bin_emptied_4,
+              bin_weights)
 
   glass_recycling <-
-    sum_waste(
-      all_data,
-      weight_of_glass_recycling_kg,
-      bin_emptied_5,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_glass_recycling_kg,
+              bin_emptied_5,
+              bin_weights)
 
   clinical_waste <-
-    sum_waste(
-      all_data,
-      weight_of_clinical_waste_kg,
-      bin_emptied_6,
-      bin_weights
-    )
+    sum_waste(all_data,
+              weight_of_clinical_waste_kg,
+              bin_emptied_6,
+              bin_weights)
 
   # Your application server logic
-  output$main_waste_chart <-   renderPlot({make_waste_chart(bind_rows(landfill_waste, plastic_recycling), input)})
-  output$main_waste_table <- make_tidy_table(bind_rows(landfill_waste, plastic_recycling))
+  output$main_waste_chart <-
+    renderPlot({
+      make_waste_chart(bind_rows(landfill_waste, plastic_recycling), input)
+    })
+  output$main_waste_table <-
+    DT::renderDT({
+      make_tidy_table(bind_rows(landfill_waste, plastic_recycling))
+    })
 
-  output$food_waste_chart <-   renderPlot({make_waste_chart(food_waste, input)})
-  output$food_waste_table <- make_tidy_table(food_waste)
+  output$food_waste_chart <-
+    renderPlot({
+      make_waste_chart(food_waste, input)
+    })
+  output$food_waste_table <-
+    DT::renderDT({
+      make_tidy_table(food_waste)
+    })
 
-  output$other_recycling_chart <-   renderPlot({make_waste_chart(other_recycling, input)})
-  output$other_recycling_table <- make_tidy_table(other_recycling)
+  output$other_recycling_chart <-
+    renderPlot({
+      make_waste_chart(other_recycling, input)
+    })
+  output$other_recycling_table <-
+    DT::renderDT({
+      make_tidy_table(other_recycling)
+    })
 
-  output$glass_recycling_chart <-   renderPlot({make_waste_chart(glass_recycling, input)})
-  output$glass_recycling_table <- make_tidy_table(glass_recycling)
+  output$glass_recycling_chart <-
+    renderPlot({
+      make_waste_chart(glass_recycling, input)
+    })
+  output$glass_recycling_table <-
+    DT::renderDT({
+      make_tidy_table(glass_recycling)
+    })
 
-  output$clinical_waste_chart <-   renderPlot({make_waste_chart(clinical_waste, input)})
-  output$clinical_waste_table <- make_tidy_table(clinical_waste)
+  output$clinical_waste_chart <-
+    renderPlot({
+      make_waste_chart(clinical_waste, input)
+    })
+  output$clinical_waste_table <-
+    DT::renderDT({
+      make_tidy_table(clinical_waste)
+    })
 
-  }
+}

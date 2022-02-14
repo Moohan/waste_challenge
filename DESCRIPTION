@@ -32,6 +32,7 @@ Imports:
     tidyr,
     tidyselect,
     waiter,
+    waldo,
     xfun
 Suggests: 
     testthat

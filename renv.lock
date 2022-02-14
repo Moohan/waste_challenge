@@ -1516,8 +1516,14 @@
     "waldo": {
       "Package": "waldo",
       "Version": "0.3.1",
-      "Source": "Repository",
+      "Source": "CRAN",
       "Repository": "RSPM",
+      "RemoteType": "standard",
+      "RemotePkgRef": "waldo",
+      "RemoteRef": "waldo",
+      "RemoteRepos": "https://packagemanager.rstudio.com/cran/latest",
+      "RemotePkgPlatform": "i386+x86_64-w64-mingw32",
+      "RemoteSha": "0.3.1",
       "Hash": "ad8cfff5694ac5b3c354f8f2044bd976",
       "Requirements": [
         "cli",

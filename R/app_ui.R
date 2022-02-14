@@ -81,24 +81,24 @@ app_ui <- function(request) {
                   width = 12,
                   DT::DTOutput("other_recycling_table")
                 ))),
-        tabItem(
-          tabName = "glass-recycling",
-          fluidRow(box(
-            width = 12,
-          plotOutput("glass_recycling_chart"))),
-          fluidRow(box(
-            width = 12,
-          DT::DTOutput("glass_recycling_table")))
-        ),
-        tabItem(
-          tabName = "clinical-waste",
-          fluidRow(box(
-            width = 12,
-          plotOutput("clinical_waste_chart"))),
-          fluidRow(box(
-            width = 12,
-          DT::DTOutput("clinical_waste_table")))
-        )
+        tabItem(tabName = "glass-recycling",
+                fluidRow(box(
+                  width = 12,
+                  plotOutput("glass_recycling_chart")
+                )),
+                fluidRow(box(
+                  width = 12,
+                  DT::DTOutput("glass_recycling_table")
+                ))),
+        tabItem(tabName = "clinical-waste",
+                fluidRow(box(
+                  width = 12,
+                  plotOutput("clinical_waste_chart")
+                )),
+                fluidRow(box(
+                  width = 12,
+                  DT::DTOutput("clinical_waste_table")
+                )))
       ))
     )
   )

@@ -36,7 +36,7 @@ make_waste_chart <- function(data, input) {
 
   } else {
     plot <- plot +
-      geom_area(aes(fill = type,)) +
+      geom_area(aes(fill = type, )) +
       scale_fill_brewer(name = "Waste type",
                         type = "qual",
                         palette = "Paired") +
@@ -47,7 +47,7 @@ make_waste_chart <- function(data, input) {
   }
 
   plot +
-    scale_y_continuous("Weight (Kg)",) +
+    scale_y_continuous("Weight (Kg)", ) +
     ggtitle(paste(unique(data$type), collapse = " and ")) +
     theme_minimal()
 }

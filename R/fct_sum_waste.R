@@ -25,7 +25,7 @@ sum_waste <- function(data, type, bin, bin_weights) {
       values_to = "weight"
     ) %>%
     # Adjust for bin weight
-    dplyr::left_join(bin_weights) %>%
+    dplyr::left_join(bin_weights, by = c("household", "type")) %>%
     tidyr::replace_na(list(bin_weight = 0)) %>%
     dplyr::mutate(weight = pmax(.data$weight - .data$bin_weight, 0)) %>%
     group_by(household) %>%

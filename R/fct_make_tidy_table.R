@@ -21,6 +21,8 @@ make_tidy_table <- function(data) {
       "Weight to date (Kg)" = cummulative_weight
     ) %>%
     dplyr::arrange(Date, Household) %>%
-    DT::datatable(extensions = c("Responsive"),
-                  plugins = c("scrolling"))
+    DT::datatable(
+      extensions = c("Responsive"),
+      plugins = c("scrolling")
+    )
 }

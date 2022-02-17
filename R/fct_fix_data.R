@@ -11,11 +11,11 @@ fix_data <- function(data) {
     dplyr::mutate(dplyr::across(
       tidyr::starts_with("weight_of_"),
       ~ dplyr::if_else(
-        10 ^ (round(log10(.x))) / 10 ^ ceiling(log10(median(.x, na.rm = TRUE))) < 10 |
+        10^(round(log10(.x))) / 10^ceiling(log10(median(.x, na.rm = TRUE))) < 10 |
           is.na(.x) |
-          dplyr::near(.x, 0) ,
+          dplyr::near(.x, 0),
         .x,
-        .x / 10 ^ (round(log10(.x))) / 10 ^ round(log10(median(.x, na.rm = TRUE)))
+        .x / 10^(round(log10(.x))) / 10^round(log10(median(.x, na.rm = TRUE)))
       )
     )) %>%
     ungroup()
@@ -24,8 +24,10 @@ fix_data <- function(data) {
     waldo::compare(data, fixed_data, x_arg = "raw", y_arg = "fixed")
 
   if (length(compare >= 1)) {
-    rlang::inform(c("i" = "Changes applied to data to correct bad values:",
-                    compare))
+    rlang::inform(c(
+      "i" = "Changes applied to data to correct bad values:",
+      compare
+    ))
   }
 
   return(fixed_data)

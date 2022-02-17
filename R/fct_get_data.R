@@ -22,8 +22,10 @@ get_data <- function() {
       is.na(weight_of_plastic_recycling_kg)
     )) %>%
     dplyr::mutate(last_has_all_data = max(dplyr::if_else(!single_bin, timestamp, as.POSIXct(NA)), na.rm = TRUE)) %>%
-    tidyr::fill(weight_of_landfill_waste_kg,
-                weight_of_plastic_recycling_kg) %>%
+    tidyr::fill(
+      weight_of_landfill_waste_kg,
+      weight_of_plastic_recycling_kg
+    ) %>%
     dplyr::mutate(across(
       c(bin_emptied, bin_emptied_2),
       ~ dplyr::if_else(

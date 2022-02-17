@@ -32,6 +32,6 @@ sum_waste <- function(data, type, bin, bin_weights) {
     dplyr::mutate(cummulative_weight = cumsum_bin(weight = .data$weight, bin = {{ bin }})) %>%
     ungroup() %>%
     dplyr::mutate(type = stringr::str_replace(.data$type, "weight_of_(.+?)_kg", "\\1") %>%
-                    stringr::str_replace_all("_", " ") %>%
-                    stringr::str_to_title())
+      stringr::str_replace_all("_", " ") %>%
+      stringr::str_to_title())
 }

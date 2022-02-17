@@ -11,14 +11,16 @@
 #'
 #' @noRd
 sum_waste <- function(data, type, bin, bin_weights) {
-  data %>%
+  trimmed_data <- data %>%
     dplyr::select(
       .data$timestamp,
       .data$household,
       {{ type }},
       {{ bin }}
     ) %>%
-    tidyr::drop_na() %>%
+    tidyr::drop_na()
+
+  pivotted_data <- trimmed_data %>%
     tidyr::pivot_longer(
       cols = c({{ type }}),
       names_to = "type",
@@ -27,11 +29,17 @@ sum_waste <- function(data, type, bin, bin_weights) {
     # Adjust for bin weight
     dplyr::left_join(bin_weights, by = c("household", "type")) %>%
     tidyr::replace_na(list(bin_weight = 0)) %>%
-    dplyr::mutate(weight = pmax(.data$weight - .data$bin_weight, 0)) %>%
-    group_by(household) %>%
-    dplyr::mutate(cummulative_weight = cumsum_bin(weight = .data$weight, bin = {{ bin }})) %>%
-    ungroup() %>%
     dplyr::mutate(type = stringr::str_replace(.data$type, "weight_of_(.+?)_kg", "\\1") %>%
-      stringr::str_replace_all("_", " ") %>%
-      stringr::str_to_title())
+                    stringr::str_replace_all("_", " ") %>%
+                    stringr::str_to_title())
+
+  cummulative_weights <- pivotted_data %>%
+    dplyr::mutate(weight = pmax(.data$weight - .data$bin_weight, 0)
+      ) %>%
+    group_by(household) %>%
+    dplyr::mutate(weight_difference = weight_diff(weight = .data$weight, bin = {{bin}}),
+                   cummulative_weight = cumsum(.data$weight_difference)) %>%
+    dplyr::ungroup()
+
+  return(cummulative_weights)
 }
